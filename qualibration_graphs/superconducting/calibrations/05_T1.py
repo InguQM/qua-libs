@@ -87,6 +87,8 @@ def create_qua_program(node: QualibrationNode[Parameters, Quam]):
             state = [declare(int) for _ in range(num_qubits)]
             state_st = [declare_stream() for _ in range(num_qubits)]
 
+        reset_global_phase()
+
         for multiplexed_qubits in qubits.batch():
             # Initialize the QPU in terms of flux points (flux tunable transmons and/or tunable couplers)
             for qubit in multiplexed_qubits.values():
