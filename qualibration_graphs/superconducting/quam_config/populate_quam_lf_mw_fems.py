@@ -125,6 +125,7 @@ for k, qubit in enumerate(machine.qubits.values()):
     qubit.resonator.opx_output.full_scale_power_dbm = rr_full_scale  # Max readout power in dBm
     qubit.resonator.opx_output.upconverter_frequency = rr_LO  # Readout up-converter frequency
     qubit.resonator.opx_input.band = get_band(rr_LO)  # Readout band for the up-conversion
+    qubit.resonator.opx_input.gain_db = 0
     qubit.resonator.opx_output.band = get_band(rr_LO)  # Readout band for the down-conversion
 
 
@@ -164,6 +165,16 @@ for k, qubit in enumerate(machine.qubits.values()):
     qubit.xy.opx_output.band = get_band(xy_LO.tolist()[k])  # Qubit drive band for the up-conversion
     qubit.grid_location = f"{k},0"  # Qubit grid location for plotting as "column,row"
 
+rr_slots = [
+    2, 2, 2, 2, 2, 2, 2, 2
+]
+xy_slots = [
+    2, 2, 2, 2, 2, 2, 2, 2
+]
+
+for k, qubit in enumerate(machine.qubits.values()):
+    qubit.resonator.core = f"{qubit.name}_slot{rr_slots[k]}"
+    qubit.xy.core = f"{qubit.name}_slot{xy_slots[k]}"
 
 ########################################################################################################################
 # %%                                    Flux parameters
